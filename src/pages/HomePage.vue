@@ -1,26 +1,11 @@
 <template>
-  <v-card
-    class="mx-auto my-8"
-    elevation="16"
-    max-width="344"
-  >
-    <v-card-item>
-      <v-card-title>
-        {{ nome }}
-      </v-card-title>
-
-      <v-card-subtitle>
-        Card subtitle secondary text
-      </v-card-subtitle>
-    </v-card-item>
-
-    <v-card-text>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </v-card-text>
-  </v-card>
+  <v-container class="pa-4" fluid height="100dvh">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque eius atque nobis perspiciatis dicta nesciunt vero quo cumque eum, nihil repellat rerum, at iusto. Possimus commodi dolor harum aut alias beatae eligendi, illo laudantium et maxime esse impedit earum quibusdam asperiores cumque odio ullam! Illum sapiente maiores deserunt, sequi eos recusandae aut delectus expedita dolores architecto amet, sunt voluptates minus iure impedit esse sit temporibus. Fugit, beatae. Totam nisi dolore beatae, iure ad quasi facilis natus, sequi possimus ea consequuntur magnam eum, veritatis aliquam qui vero quos distinctio fugit ducimus sint exercitationem. Hic inventore, unde corporis cum sapiente ipsam expedita?
+    </p>
+  </v-container>
 </template>
 
 <script setup>
-  
-const nome = ref('Anderson')
+
 </script>
