@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-app-bar color="yellow">
+    <v-app-bar color="secondary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
