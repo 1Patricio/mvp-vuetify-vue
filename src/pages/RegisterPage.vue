@@ -17,6 +17,7 @@
             </div>
 
             <v-text-field
+              v-model="formData.nome"
               label="Nome"
               required
               variant="outlined"
@@ -26,6 +27,7 @@
             ></v-text-field>
 
             <v-text-field
+              v-model="formData.email"
               label="Email"
               required
               variant="outlined"
@@ -35,12 +37,15 @@
             ></v-text-field>
 
             <v-text-field
+              v-model="formData.senha"
+              :append-inner-icon="passwordIsVisible ? 'mdi-eye' : 'mdi-eye-off'"
               label="Senhas"
               required
               variant="outlined"
-              type="password"
+              :type="passwordIsVisible ? text : 'password'"
               class="mb-3"
               :rules="[rules.required, rules.maxLength, rules.minLength]"
+              @click:append-inner="showPassword"
             >
             </v-text-field>
 
@@ -52,7 +57,7 @@
               type="submit"
               :disabled="!valid"
             >
-              Entrar
+              Cadastrar
             </v-btn>
 
             <div class="text-center mb-3">
@@ -70,6 +75,13 @@
 </template>
 
 <script setup>
+
+const formData = ref({
+  nome: '',
+  email: '',
+  senha: ''
+})
+
 const rules = {
   required: value => !!value || 'Campo obrigatório',
   email: value => {
@@ -87,6 +99,11 @@ function handleSubmit () {
     alert('Formulário incompleto')
   }
 
-  alert('Formulário enviado')
+  alert(JSON.stringify(formData.value))
+}
+
+const passwordIsVisible = ref(false)
+function showPassword() {
+  passwordIsVisible.value = !passwordIsVisible.value
 }
 </script>
