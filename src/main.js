@@ -8,7 +8,6 @@ import * as directives from 'vuetify/directives'
 import 'unfonts.css'
 import '@mdi/font/css/materialdesignicons.css'
 
-
 const vuetify = createVuetify({
   components,
   directives,

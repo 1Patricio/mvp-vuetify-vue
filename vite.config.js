@@ -7,7 +7,6 @@ import ViteFonts from 'unplugin-fonts/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 
-
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -18,6 +17,7 @@ export default defineConfig({
         /\.vue\?vue/, // .vue?vue
         /\.md$/ // .md
       ],
+
       imports: [
         'vue'
       ]
@@ -25,9 +25,11 @@ export default defineConfig({
     Components({
       dirs: ['src/components'],
       extensions: ['vue'],
-       globs: ['src/components/*.vue'],
+      globs: ['src/components/*.vue'],
       deep: false,
-     }),
+      include: [/\.vue$/, /\.vue\?vue/, /\.vue\.[tj]sx?\?vue/],
+      exclude: [/[\\/]node_modules[\\/]/, /[\\/]\.git[\\/]/, /[\\/]\.nuxt[\\/]/],
+    }),
     vue(),
     vueDevTools(),
     ViteFonts({

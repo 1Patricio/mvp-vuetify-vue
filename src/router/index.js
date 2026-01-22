@@ -35,17 +35,17 @@ const router = createRouter({
         component: () => import('@/pages/HomePage.vue')
       },
       {
-        path: 'category',
+        path: '/category',
         name: 'category',
         component: () => import('@/pages/CategoryPage.vue')
       },
       {
-        path: 'form-category',
+        path: '/form-category',
         name: 'form-category',
         component: () => import('@/pages/CategoryFormPage.vue')
       },
       {
-        path: 'product',
+        path: '/product',
         name: 'product',
         component: () => import('@/pages/ProductPage.vue')
       },

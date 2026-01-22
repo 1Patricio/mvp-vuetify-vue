@@ -56,7 +56,7 @@ const valid = ref(false)
 
 const formCategory = ref({
   name: '',
-  status: 'Ativo'
+  status: 'active'
 })
 
 const status = [
@@ -81,6 +81,7 @@ async function createCategory(){
       ...formCategory.value
     })
   } catch (error) {
+    console.error(error)
     notification.error('Erro ao salvar categoria')
   }
 }
