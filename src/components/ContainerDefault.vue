@@ -3,7 +3,3 @@
     <slot></slot>
   </v-container>
 </template>
-
-<script setup>
-
-</script>

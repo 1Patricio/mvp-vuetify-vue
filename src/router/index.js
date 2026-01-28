@@ -1,3 +1,4 @@
+import { useAuth } from '@/composables/useAuth'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -13,13 +14,13 @@ const router = createRouter({
         {
           path: '',
           name: 'login',
-          component: () => import('@/pages/LoginPage.vue')
+          component: () => import('@/pages/LoginPage.vue'),
         },
         {
           path: 'register',
           name: 'register',
-          component: () => import('@/pages/RegisterPage.vue')
-        }
+          component: () => import('@/pages/RegisterPage.vue'),
+        },
       ]
     },
     {
@@ -53,13 +54,13 @@ const router = createRouter({
   }],
 })
 
+const auth = useAuth()
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('v-token')
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
 
-  if (requiresAuth && !token) {
+  if (requiresAuth && auth.isTokenExpire()) {
     next({ name: 'login'})
-  } else if(!requiresAuth && token && to.name === 'login') {
+  } else if(!requiresAuth && !auth.isTokenExpire() && to.name === 'login') {
     next({ name: 'home'})
   } else {
     next()

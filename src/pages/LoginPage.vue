@@ -121,7 +121,7 @@ function showPassword() {
 
 function handleSubmit () {
   if(!valid.value) {
-    alert('Formulário incompleto')
+    notification.error('Formulário inválido')
   }
 
   loginUser()
