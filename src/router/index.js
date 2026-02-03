@@ -50,6 +50,11 @@ const router = createRouter({
         name: 'product',
         component: () => import('@/pages/ProductPage.vue')
       },
+      {
+        path: '/form-product/:id?',
+        name: 'form-product',
+        component: () => import('@/pages/ProductFormPage.vue')
+      },
     ]
   }],
 })

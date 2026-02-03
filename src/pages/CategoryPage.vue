@@ -22,14 +22,12 @@
 
 <script setup>
 import { useApi } from '@/composables/useApi';
-import { useAuth } from '@/composables/useAuth';
 import { useNotification } from '@/composables/useNotification';
 import { useRouter } from 'vue-router';
 
 const notification = useNotification()
 const api = useApi()
 const router = useRouter()
-const auth = useAuth()
 
 const headers = [
     { title: 'Name', value: 'name' },
