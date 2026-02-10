@@ -49,13 +49,14 @@ import { useApi } from '@/composables/useApi'
 import { useNotification } from '@/composables/useNotification'
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useCategoryService } from '@/services';
 
 const notification = useNotification()
-const api = useApi()
 const router = useRouter()
 const route = useRoute()
-const idCategory = ref('')
+const categoryService = useCategoryService()
 
+const idCategory = ref('')
 const valid = ref(false)
 
 const formCategory = ref({
@@ -88,9 +89,7 @@ function handleSubmit() {
 
 async function createCategory(){
   try {
-    await api.post('/category',{
-      ...formCategory.value
-    })
+    await categoryService.create(formCategory.value)
     notification.success('Categoria cadastrada com sucesso')
     router.push({ name: 'category' })
   } catch (error) {
@@ -101,10 +100,10 @@ async function createCategory(){
 
 async function getCategory(id) {
   try {
-    const response = await api.get(`/category/${id}`)
+    const data = await categoryService.getById(id)
     formCategory.value = {
-      name: response.data.name,
-      status: response.data.status
+      name: data.name,
+      status: data.status
     }
   } catch (error) {
     console.error(error)
@@ -114,9 +113,8 @@ async function getCategory(id) {
 
 async function updateCategory(id){
   try {
-    await api.put(`/category/${id}`,{
-      ...formCategory.value
-    })
+    categoryService.update(id, formCategory.value)
+
     notification.success('Categoria atualizada com sucesso')
     router.push({ name: 'category' })
   } catch (error) {

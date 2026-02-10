@@ -64,18 +64,18 @@
 </template>
 
 <script setup>
-import SelectCategory from '@/components/SelectCategory.vue'
 import { useApi } from '@/composables/useApi'
 import { useNotification } from '@/composables/useNotification'
-import { onMounted } from 'vue'
+import { useProductService } from '@/services';
 import { useRoute, useRouter } from 'vue-router'
 
 const notification = useNotification()
 const api = useApi()
 const router = useRouter()
 const route = useRoute()
-const idProduct = ref('')
+const productService = useProductService()
 
+const idProduct = ref('')
 const valid = ref(false)
 
 const formProduct = ref({
@@ -111,11 +111,9 @@ function handleSubmit() {
 
 async function createProduct(){
   try {
-    await api.post('/product',{
-      ...formProduct.value
-    })
+    await productService.create(formProduct.value)
     notification.success('Produto cadastrado com sucesso')
-    router.push({ name: 'category' })
+    router.push({ name: 'product' })
   } catch (error) {
     console.error(error)
     notification.error('Erro ao salvar produto')
@@ -123,26 +121,27 @@ async function createProduct(){
 }
 
 async function getProduct(id) {
+  loading.value = true
   try {
-    const response = await api.get(`/product/${id}`)
+    const data = await productService.getById(id)
     formProduct.value = {
-      name: response.data.name,
-      description: response.data.description,
-      price: response.data.price,
-      status: response.data.status,
-      category_id: response.data.category_id
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      status: data.status,
+      category_id: data.category_id
     }
   } catch (error) {
     console.error(error)
     notification.error('Erro ao buscar produto')
+  } finally {
+    loading.value = false
   }
 }
 
 async function updateProduct(id){
   try {
-    await api.put(`/product/${id}`,{
-      ...formProduct.value
-    })
+    await productService.update(id, formProduct.value)
     notification.success('Produto atualizado com sucesso')
     router.push({ name: 'product' })
   } catch (error) {

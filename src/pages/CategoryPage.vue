@@ -10,7 +10,7 @@
         Nova Categoria
       </v-btn>
     </div>
-    <v-data-table :headers="headers" :items="categories">
+    <v-data-table :headers="headers" :items="categories" :loading="loading">
       <template v-slot:item.status="{ item }">
         <ChipStatus
           :status="item.status"
@@ -28,13 +28,15 @@
 
 <script setup>
 import ChipStatus from '@/components/ChipStatus.vue';
-import { useApi } from '@/composables/useApi';
 import { useNotification } from '@/composables/useNotification';
+import { useCategoryService } from '@/services';
 import { useRouter } from 'vue-router';
 
 const notification = useNotification()
-const api = useApi()
 const router = useRouter()
+const categoryService = useCategoryService()
+
+const loading = ref(false)
 
 const headers = [
     { title: 'Name', value: 'name' },
@@ -45,12 +47,14 @@ const headers = [
 const categories = ref([])
 
 async function getCategories(){
+  loading.value = true
   try {
-    const response = await api.get('/category')
-    categories.value = response.data
+    categories.value = await categoryService.getAll()
   } catch (error) {
     console.error(error)
     notification.error('Erro ao listar categorias')
+  } finally {
+    loading.value = false
   }
 }
 

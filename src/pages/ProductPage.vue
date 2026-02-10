@@ -10,7 +10,7 @@
         Novo Produto
       </v-btn>
     </div>
-    <v-data-table :headers="headers" :items="products">
+    <v-data-table :headers="headers" :items="products" :loading="loading">
       <template v-slot:item.status="{ item }">
         <ChipStatus
           :status="item.status"
@@ -27,12 +27,12 @@
 </template>
 
 <script setup>
-import { useApi } from '@/composables/useApi';
 import { useNotification } from '@/composables/useNotification';
+import { useProductService } from '@/services';
 import { useRouter } from 'vue-router';
 
 const notification = useNotification()
-const api = useApi()
+const productService = useProductService()
 const router = useRouter()
 
 const headers = [
@@ -42,14 +42,17 @@ const headers = [
   ]
 
 const products = ref([])
+const loading = ref(false)
 
 async function getProducts(){
+  loading.value = true
   try {
-    const response = await api.get('/product')
-    products.value = response.data
+    products.value = await productService.getAll()
   } catch (error) {
     console.error(error)
     notification.error('Erro ao listar produtos')
+  } finally {
+    loading.value = false
   }
 }
 

@@ -8,15 +8,16 @@
     persistent-hint
     variant="outlined"
     :rules="props.rules"
+    :loading="loading.value"
   ></v-select>
 </template>
 
 <script setup>
-import { useApi } from '@/composables/useApi'
 import { useNotification } from '@/composables/useNotification'
+import { useCategoryService } from '@/services'
 
 const notification = useNotification()
-const api = useApi()
+const categoryService = useCategoryService()
 
 const props = defineProps({
   rules: {
@@ -28,14 +29,17 @@ const props = defineProps({
 const model = defineModel({ required: true})
 
 const categories = ref([])
+const loading = ref(false)
 
 async function getCategories(){
+  loading.value = true
   try {
-    const response = await api.get('/category')
-    categories.value = response.data
+    categories.value = await categoryService.getAll()
   } catch (error) {
     console.error(error)
     notification.error('Erro ao listar categorias')
+  } finally {
+    loading.value = false
   }
 }
 
