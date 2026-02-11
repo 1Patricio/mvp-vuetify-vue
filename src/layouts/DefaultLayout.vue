@@ -4,13 +4,13 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        Projeto Vuetify
+        Open Stock
       </v-toolbar-title>
 
       <v-btn icon="mdi-logout" @click="dialogLogout = true"></v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" :width="160">
+    <v-navigation-drawer v-model="drawer" :width="240">
       <v-list>
         <v-list-item
           v-for="menu in items"

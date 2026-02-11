@@ -8,6 +8,11 @@ export function createBaseService(resource) {
     return response.data
   }
 
+  async function getTotal(params = {}) {
+    const response = await api.get(resource, {params})
+    return response.data?.length || 0
+  }
+
   async function getById(id) {
     const response = await api.get(`${resource}/${id}`)
     return response.data
@@ -33,6 +38,7 @@ export function createBaseService(resource) {
     getById,
     create,
     update,
-    remove
+    remove,
+    getTotal
   }
 }
