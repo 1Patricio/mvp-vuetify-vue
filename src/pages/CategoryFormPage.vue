@@ -45,7 +45,6 @@
 </template>
 
 <script setup>
-import { useApi } from '@/composables/useApi'
 import { useNotification } from '@/composables/useNotification'
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

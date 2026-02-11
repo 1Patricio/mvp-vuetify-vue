@@ -64,19 +64,18 @@
 </template>
 
 <script setup>
-import { useApi } from '@/composables/useApi'
 import { useNotification } from '@/composables/useNotification'
 import { useProductService } from '@/services';
 import { useRoute, useRouter } from 'vue-router'
 
 const notification = useNotification()
-const api = useApi()
 const router = useRouter()
 const route = useRoute()
 const productService = useProductService()
 
 const idProduct = ref('')
 const valid = ref(false)
+const loading = ref(false)
 
 const formProduct = ref({
   name: '',
